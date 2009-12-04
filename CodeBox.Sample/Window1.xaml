@@ -1,0 +1,29 @@
+﻿<Window x:Class="HawkCodeBox.Sample.Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dlrControls="clr-namespace:Microsoft.Scripting.Controls;assembly=Microsoft.Scripting.Controls"
+    Title="Window1" Height="800" Width="800">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Menu>
+            <MenuItem Header="Python" Click="PythonMenuItem_Click" />
+            <MenuItem Header="Ruby" Click="RubyMenuItem_Click" />
+        </Menu>
+        <dlrControls:CodeBox x:Name="codebox" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" FontSize="16" Grid.Row="1">
+            <!-- If you want to use an alternative color scheme, uncomment the following element -->
+            <dlrControls:CodeBox.SyntaxColors>
+                <dlrControls:SyntaxItem Color="#8AC5FF" TokenCategory="Keyword"/>
+                <dlrControls:SyntaxItem Color="#FF8040" TokenCategory="StringLiteral"/>
+                <dlrControls:SyntaxItem Color="#FF00FF" TokenCategory="Error"/>
+                <dlrControls:SyntaxItem Color="#FFFF80" TokenCategory="NumericLiteral"/>
+                <dlrControls:SyntaxItem Color="#80FF00" TokenCategory="Comment"/>
+                <dlrControls:SyntaxItem Color="#80FF00" TokenCategory="LineComment"/>
+            </dlrControls:CodeBox.SyntaxColors>
+        </dlrControls:CodeBox>
+
+    </Grid>
+</Window>

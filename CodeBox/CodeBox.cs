@@ -16,7 +16,7 @@ using System.Globalization;
 using Microsoft.Scripting.Hosting;
 using Microsoft.Scripting;
 
-namespace DevHawk.Windows.Controls
+namespace Microsoft.Scripting.Controls
 {
     /// <summary>
     /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
@@ -25,14 +25,14 @@ namespace DevHawk.Windows.Controls
     /// Add this XmlNamespace attribute to the root element of the markup file where it is 
     /// to be used:
     ///
-    ///     xmlns:devhawk="clr-namespace:DevHawk.Windows.Controls"
+    ///     xmlns:dlrControls="clr-namespace:Microsoft.Scripting.Controls"
     ///
     ///
     /// Step 1b) Using this custom control in a XAML file that exists in a different project.
     /// Add this XmlNamespace attribute to the root element of the markup file where it is 
     /// to be used:
     ///
-    ///     xmlns:devhawk="clr-namespace:DevHawk.Windows.Controls;assembly=HawkCodeBox"
+    ///     xmlns:dlrControls="clr-namespace:Microsoft.Scripting.Controls;assembly=Microsoft.Scripting.Controls"
     ///
     /// You will also need to add a project reference from the project where the XAML file lives
     /// to this project and Rebuild to avoid compilation errors:
@@ -44,17 +44,19 @@ namespace DevHawk.Windows.Controls
     /// Step 2)
     /// Go ahead and use your control in the XAML file.
     /// 
-    ///     <devhawk:HawkCodeBox/>
-    ///
+    ///     <devControls:CodeBox />
+    /// 
+    /// It takes all the same properties as System.Windows.Controls.TextBox
+    /// 
     /// </summary>
-    public class HawkCodeBox : HawkCodeBoxBase
+    public class CodeBox : CodeBoxBase
     {
         //Using a DependencyProperty to store the DLR language name used to colorize the text
-        public static readonly DependencyProperty LanguageProperty =
-            DependencyProperty.Register("Language", typeof(string), typeof(HawkCodeBoxBase),
+        public static readonly new DependencyProperty LanguageProperty =
+            DependencyProperty.Register("Language", typeof(string), typeof(CodeBoxBase),
                 new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, OnLanguageChanged));
 
-        public string Language
+        public new string Language
         {
             get { return (string)GetValue(LanguageProperty); }
             set { SetValue(LanguageProperty, value); }
@@ -62,7 +64,7 @@ namespace DevHawk.Windows.Controls
 
         static void OnLanguageChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
         {
-            ((HawkCodeBox)obj).BuildTokenCache(0);
+            ((CodeBox)obj).BuildTokenCache(0);
         }
 
         //helper property to retrieve the engine for the current language

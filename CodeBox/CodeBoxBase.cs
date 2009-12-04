@@ -9,36 +9,36 @@ using System.Windows.Media;
 using Microsoft.Scripting;
 using Microsoft.Scripting.Hosting;
 
-namespace DevHawk.Windows.Controls
+namespace Microsoft.Scripting.Controls
 {
-    public abstract class HawkCodeBoxBase : TextBox
+    public abstract class CodeBoxBase : TextBox
     {
-        static HawkCodeBoxBase()
+        static CodeBoxBase()
         {
             //override the metadata of Foreground and Background properties so that 
             //the control can set them back to the correct value if they are changed.
-            Control.ForegroundProperty.OverrideMetadata(typeof(HawkCodeBoxBase),
+            Control.ForegroundProperty.OverrideMetadata(typeof(CodeBoxBase),
                 new FrameworkPropertyMetadata(Brushes.Transparent, OnForegroundChanged));
-            Control.BackgroundProperty.OverrideMetadata(typeof(HawkCodeBoxBase),
+            Control.BackgroundProperty.OverrideMetadata(typeof(CodeBoxBase),
                 new FrameworkPropertyMetadata(OnBackgroundChanged));
 
             //Since this is a text box for code, the default settings for a few of the 
             //properties should be different (fixed width font, accepts return and tab)
-            Control.FontFamilyProperty.OverrideMetadata(typeof(HawkCodeBoxBase),
+            Control.FontFamilyProperty.OverrideMetadata(typeof(CodeBoxBase),
                 new FrameworkPropertyMetadata(new FontFamily("Consolas")));
-            TextBoxBase.AcceptsReturnProperty.OverrideMetadata(typeof(HawkCodeBoxBase),
+            TextBoxBase.AcceptsReturnProperty.OverrideMetadata(typeof(CodeBoxBase),
                 new FrameworkPropertyMetadata(true));
-            TextBoxBase.AcceptsTabProperty.OverrideMetadata(typeof(HawkCodeBoxBase),
+            TextBoxBase.AcceptsTabProperty.OverrideMetadata(typeof(CodeBoxBase),
                 new FrameworkPropertyMetadata(true));
         }
 
-        //Foreground must be the transparent brush for HawkCodeBoxBase to work. If someone tries to set it
-        //To something other than Transparent, this function changes it back
+        //Foreground must be the transparent brush for CodeBoxBase to work. If someone tries to set it
+        //to something other than Transparent, this function changes it back
         private static void OnForegroundChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (e.NewValue != Brushes.Transparent)
             {
-                ((HawkCodeBoxBase)d).Foreground = Brushes.Transparent;
+                ((CodeBoxBase)d).Foreground = Brushes.Transparent;
             }
         }
 
@@ -48,7 +48,7 @@ namespace DevHawk.Windows.Controls
         //provided by the TransparentBackgroundColor property on HawkCodeBoxBase
         private static void OnBackgroundChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var codebox = (HawkCodeBoxBase)d;
+            var codebox = (CodeBoxBase)d;
             var transparent_bg = codebox.GetTransparentBackgroundColor();
             var bgbrush = e.NewValue as SolidColorBrush;
             if (bgbrush == null || bgbrush.Color != transparent_bg)
@@ -57,7 +57,7 @@ namespace DevHawk.Windows.Controls
             }
         }
 
-        public HawkCodeBoxBase()
+        public CodeBoxBase()
         {
             this.Loaded += (s, e) =>
                 {
@@ -75,7 +75,7 @@ namespace DevHawk.Windows.Controls
 
         //Using a DependencyProperty to manage the default foreground color for the text in the text box
         public static readonly DependencyProperty DefaultForegroundColorProperty =
-            DependencyProperty.Register("ForegroundColor", typeof(Color), typeof(HawkCodeBoxBase),
+            DependencyProperty.Register("ForegroundColor", typeof(Color), typeof(CodeBoxBase),
                 new FrameworkPropertyMetadata(Colors.White, FrameworkPropertyMetadataOptions.AffectsRender));
 
         public Color DefaultForegroundColor
@@ -86,7 +86,7 @@ namespace DevHawk.Windows.Controls
 
         //using a DependencyProperty to manage the background color for the text box
         public static readonly DependencyProperty BackgroundColorProperty =
-            DependencyProperty.Register("BackgroundColor", typeof(Color), typeof(HawkCodeBoxBase),
+            DependencyProperty.Register("BackgroundColor", typeof(Color), typeof(CodeBoxBase),
                 new FrameworkPropertyMetadata(Colors.Black, FrameworkPropertyMetadataOptions.AffectsRender, OnBackgroundColorChanged));
 
         public Color BackgroundColor
@@ -99,7 +99,7 @@ namespace DevHawk.Windows.Controls
         //brush in order to keep the caret and text selection adornments
         static void OnBackgroundColorChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
         {
-            var codebox = (HawkCodeBoxBase)obj;
+            var codebox = (CodeBoxBase)obj;
             codebox.Background = new SolidColorBrush(codebox.GetTransparentBackgroundColor());
         }
         
@@ -111,7 +111,7 @@ namespace DevHawk.Windows.Controls
 
         // Using a DependencyProperty as the backing store for SyntaxColors collection.  
         public static readonly DependencyProperty SyntaxColorsProperty =
-            DependencyProperty.Register("SyntaxColors", typeof(SyntaxItemCollection), typeof(HawkCodeBox),
+            DependencyProperty.Register("SyntaxColors", typeof(SyntaxItemCollection), typeof(CodeBox),
                 new FrameworkPropertyMetadata(new SyntaxItemCollection(), OnSyntaxColorsChanged));
 
         public SyntaxItemCollection SyntaxColors
@@ -123,7 +123,7 @@ namespace DevHawk.Windows.Controls
         //if the syntax colors collection changes, discard the cached dictionary of syntax colors 
         static void OnSyntaxColorsChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
         {
-            ((HawkCodeBox)obj)._syntaxMap = null;
+            ((CodeBox)obj)._syntaxMap = null;
         }
 
         //Cached version of the syntax colors dictionary

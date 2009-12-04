@@ -1,9 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HawkCodeBox", "HawkCodeBox\HawkCodeBox.csproj", "{7049D441-A36D-4578-83CF-D431671C7E23}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Scripting.Controls", "CodeBox\Microsoft.Scripting.Controls.csproj", "{7049D441-A36D-4578-83CF-D431671C7E23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HawkCodeBox.Sample", "HawkCodeBox.Sample\HawkCodeBox.Sample.csproj", "{E72AD8CD-E61E-4C84-8822-3CBFB8E4A0B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeBox.Sample", "CodeBox.Sample\CodeBox.Sample.csproj", "{E72AD8CD-E61E-4C84-8822-3CBFB8E4A0B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
